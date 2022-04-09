@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestTemplate;
@@ -16,11 +17,11 @@ import java.util.List;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
-import static ru.mozevil.test.mitra.Client.configurations.AppConfig.remoteApiUrl;
 
 @ExtendWith(MockitoExtension.class)
 class MainControllerTest {
-
+    @Value("${app.mainAppUrl}")
+    private String mainAppUrl;
     @Mock private RestTemplate restTemplate;
     private MainController underTest;
 
@@ -38,7 +39,7 @@ class MainControllerTest {
         //when
         underTest.getUsers(authHeader);
         //then
-        verify(restTemplate).exchange(remoteApiUrl + "/user/dto", GET, entity, List.class);
+        verify(restTemplate).exchange(mainAppUrl + "/user/dto", GET, entity, List.class);
     }
 
     @Test
@@ -48,7 +49,7 @@ class MainControllerTest {
         //when
         underTest.getUsers(authHeader);
         //then
-        verify(restTemplate).exchange(remoteApiUrl + "/user/dto", GET, entity, List.class);
+        verify(restTemplate).exchange(mainAppUrl + "/user/dto", GET, entity, List.class);
     }
 
     @Test
@@ -58,7 +59,7 @@ class MainControllerTest {
         //when
         underTest.auth(loginRequest);
         //then
-        verify(restTemplate).exchange(remoteApiUrl + "/auth", POST, entity, TokenResponse.class);
+        verify(restTemplate).exchange(mainAppUrl + "/auth", POST, entity, TokenResponse.class);
 
     }
 }

@@ -44,6 +44,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>mitra-client</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

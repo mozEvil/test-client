@@ -12,6 +12,4 @@ public class AppConfig {
         return new RestTemplate();
     }
 
-    public static final String remoteApiUrl = "http://localhost:8700";
-
 }
